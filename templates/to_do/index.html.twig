@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ToDo index{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <h1>ToDo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>IsDone</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for to_do in to_dos %}
+            <tr>
+                <td>{{ to_do.id }}</td>
+                <td>{{ to_do.title }}</td>
+                <td>{{ to_do.description }}</td>
+                <td>{{ to_do.isDone ? 'Yes' : 'No' }}</td>
+                <td>{{ to_do.createdAt ? to_do.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ to_do.updatedAt ? to_do.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_to_do_show', {'id': to_do.id}) }}">show</a>
+                    <a href="{{ path('app_to_do_edit', {'id': to_do.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_to_do_new') }}">Create new</a>
+    <img src="{{ asset('images/test.png') }}">
+    </div>
+{% endblock %}

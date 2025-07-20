@@ -1,18 +1,19 @@
-
 services:
-###> doctrine/doctrine-bundle ###
-  database:
+  app:
+    build: .
     ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
+      - "8000:8000"
+    volumes:
+      - .:/var/www/symfony
+    depends_on:
+      - database
+    command: php -S 0.0.0.0:8000 -t public
 
-###> symfony/mailer ###
   mailer:
     image: axllent/mailpit
     ports:
-      - "1025"
-      - "8025"
+      - "1025:1025"
+      - "8025:8025"
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-###< symfony/mailer ###
