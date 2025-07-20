@@ -27,7 +27,8 @@ WORKDIR /var/www/symfony
 
 COPY . .
 
-RUN composer install
+# Run composer install without scripts during build to avoid symfony-cmd error
+RUN composer install --no-scripts --no-dev --optimize-autoloader
 
 # Copy nginx config (make sure this exists and is correct)
 COPY ./docker/nginx.conf /etc/nginx/nginx.conf
